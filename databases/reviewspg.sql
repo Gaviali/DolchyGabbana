@@ -1,17 +1,20 @@
 -- Table 'Reviews Results'
+DROP DATABASE IF EXISTS Reviews;
+CREATE DATABASE Reviews;
+USE Reviews;
 
 DROP TABLE IF EXISTS `Reviews Results`;
 
 CREATE TABLE `Reviews Results` (
-  `review_id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `review_id` INTEGER NOT NULL AUTO_INCREMENT,
   `product_id` INTEGER NULL DEFAULT NULL,
   `rating` INTEGER NULL DEFAULT NULL,
-  `summary` MEDIUMTEXT NULL DEFAULT NULL,
+  `summary` TEXT NULL DEFAULT NULL,
   `recommend` TINYINT NULL DEFAULT NULL,
-  `response` MEDIUMTEXT NULL DEFAULT NULL,
-  `body` MEDIUMTEXT NULL DEFAULT NULL,
+  `response` TEXT NULL DEFAULT NULL,
+  `body` TEXT NULL DEFAULT NULL,
   `date` DATE NULL DEFAULT NULL,
-  `reviewer_name` MEDIUMTEXT NULL DEFAULT NULL,
+  `reviewer_name` TEXT NULL DEFAULT NULL,
   `photos` INTEGER NULL DEFAULT NULL,
   `helpfulness` INTEGER NULL DEFAULT NULL,
   `report` TINYINT NULL DEFAULT NULL,
@@ -46,10 +49,10 @@ CREATE TABLE `Reviews Results Photos` (
 DROP TABLE IF EXISTS `Review Metadata`;
 
 CREATE TABLE `Review Metadata` (
-  `product_id` MEDIUMTEXT NULL AUTO_INCREMENT DEFAULT NULL,
-  `ratings obj to string` MEDIUMTEXT NULL DEFAULT NULL,
-  `recommended obj to string` MEDIUMTEXT NULL DEFAULT NULL,
-  `characteristics` MEDIUMTEXT NULL DEFAULT NULL,
+  `product_id` TEXT NULL AUTO_INCREMENT DEFAULT NULL,
+  `ratings` TEXT NULL DEFAULT NULL,
+  `recommended` TEXT NULL DEFAULT NULL,
+  `characteristics` TEXT NULL DEFAULT NULL,
   PRIMARY KEY (`product_id`)
 );
 

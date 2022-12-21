@@ -1,6 +1,5 @@
 const model = require('../models');
 
-
 //MONGOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOSE
 // module.exports = {
 // 	method: (req, res) => {
@@ -11,14 +10,32 @@ const model = require('../models');
 // }
 
 //MYSQL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// module.exports = {
-// 	method: (req, res) => {
-// 		model.model'sfilename.functioname((err, res) => {
-// 			if (err) {
-// 				console.error(err);
-// 			else {
-// 				res.send(data);
-// 			}
-// 		});
-// 	}
-// }
+module.exports = {
+	get: (req, res) => {
+		model.reviews.getAll((err, res) => {
+			if (err) {
+				console.error(err);
+      } else {
+				res.send(data);
+			}
+		});
+	},
+  post: (req, res) => {
+    model.reviews.post((err, res) => {
+      if (err) {
+        console.error(err);
+      } else {
+        res.send(data);
+      }
+    })
+  },
+  put: (req, res) => {
+    model.reviews.update((err, res) => {
+      if (err) {
+        console.error(err);
+      } else {
+        res.send(data);
+      }
+    })
+  }
+}

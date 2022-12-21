@@ -18,7 +18,7 @@ router.put('/qa/questions/:answer_id/report', controller.qa.put.answer.report )
 router.get('/reviews', controller.reviews.get);
 router.get('/reviews/meta', controller.reviews.get);
 router.post('/reviews', controller.reviews.post);
-router.put('reviews/:review_id/helpful', controller.reviews.update);
-router.put('reviews/:review_id/report', controller.reviews.update);
+router.put('reviews/:review_id/helpful', controller.reviews.put);
+router.put('reviews/:review_id/report', controller.reviews.put);
 
 module.exports = router;

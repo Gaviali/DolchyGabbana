@@ -1,4 +1,4 @@
-const models = require('./models/products.js')
+const models = require('../models/products')
 
 const info = (req, res) => {
   models.getInfo(req.body, (err, response) => {
