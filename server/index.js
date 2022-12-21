@@ -14,12 +14,14 @@ const path = require('path');
 //   .connect()
 //   .then(() => console.log('connected postgreSQL'))
 //   .catch((err) => console.error('connection error: ', err.stack));
+const router = require('./router.js')
 
 const express = require('express');
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/', router)
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // client.query('SELECT $1::text as message', ['HELLO WORLD!!!'], (err, res) => {
