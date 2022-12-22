@@ -1,17 +1,5 @@
 const db = require('../../databases/reviewspg')
 
-
-//MONGOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOSE
-// module.exports = {
-// 	functions: () => {
-// 		return Database.method()
-// 			.find({}).sort().exec() for find
-// 			.create(input) for post
-// 			.otherstuff for other methods such as findOneAndDelete or findOneAndUpdate
-// 	}
-// };
-
-//MYSQL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 module.exports = {
   getAll: (callback) => {
     const query = 'SELECT * FROM Reviews, Reviews Results WHERE product = product_id & reported = false'

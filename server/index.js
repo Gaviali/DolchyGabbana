@@ -1,19 +1,15 @@
 require('dotenv').config();
 const path = require('path');
+// const client = require('../databases/reviewspg')
 // const { Client } = require('pg');
-// const client = new Client(
-//   {
-//   host: 'localhost',
-//   port: 3000,
+// const client = new Client({
 //   user: 'root',
+//   host: '127.0.0.1',
+//   database: 'Reviews',
 //   password: '',
-// }
-// );
+//   port: 3000,
+// });
 
-// client
-//   .connect()
-//   .then(() => console.log('connected postgreSQL'))
-//   .catch((err) => console.error('connection error: ', err.stack));
 const router = require('./router.js')
 
 const express = require('express');
