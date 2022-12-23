@@ -5,75 +5,65 @@ CREATE DATABASE Reviews;
 
 \c Reviews;
 
-DROP TABLE IF EXISTS Reviews_Results;
-
-CREATE TABLE Reviews_Results (
-   review_id  INTEGER NOT NULL AUTO_INCREMENT,
-   product_id  INTEGER NULL DEFAULT NULL,
-   rating  INTEGER NULL DEFAULT NULL,
-   summary  TEXT NULL DEFAULT NULL,
-   recommend  TINYINT NULL DEFAULT NULL,
-   response  TEXT NULL DEFAULT NULL,
-   body  TEXT NULL DEFAULT NULL,
-   date  DATE NULL DEFAULT NULL,
-   reviewer_name  TEXT NULL DEFAULT NULL,
-   photos  INTEGER NULL DEFAULT NULL,
-   helpfulness  INTEGER NULL DEFAULT NULL,
-   report  TINYINT NULL DEFAULT NULL,
-  PRIMARY KEY ( review_id )
-);
+DROP TABLE IF EXISTS  Reviews CASCADE;
+DROP TABLE IF EXISTS  Results CASCADE;
+DROP TABLE IF EXISTS  ReviewsPhotos CASCADE;
+DROP TABLE IF EXISTS  Characteristics CASCADE;
+DROP TABLE IF EXISTS  CharReview CASCADE;
 
 -- Table 'Reviews'
-
-DROP TABLE IF EXISTS  Reviews ;
-
 CREATE TABLE  Reviews  (
-   product  TEXT NOT NULL AUTO_INCREMENT,
-   page  INTEGER NULL DEFAULT NULL,
-   count  INTEGER NULL DEFAULT NULL,
-   results  INTEGER NULL DEFAULT NULL,
-  PRIMARY KEY ( product )
+   product_id  SERIAL PRIMARY KEY,
+   page  INTEGER ,
+   count  INTEGER ,
 );
 
--- Table 'Reviews Results Photos'
-
-DROP TABLE IF EXISTS  Reviews_Results_Photos ;
-
-CREATE TABLE  Reviews_Results_Photos  (
-   id  INTEGER NOT NULL AUTO_INCREMENT,
-   url  TEXT NULL DEFAULT NULL,
-   review_id  INTEGER NULL DEFAULT NULL,
-  PRIMARY KEY ( id )
+-- Table 'Results'
+CREATE TABLE Results (
+   review_id  SERIAL PRIMARY KEY,
+   product_id  SERIAL ,
+   rating  INT ,
+   date  TIMESTAMPTZ, --looks like a bunch of numbers in the csv
+   summary  TEXT ,
+   body  TEXT ,
+   recommend  BOOLEAN ,
+   reported  BOOLEAN ,
+   reviewer_name  TEXT ,
+   reviewer_email TEXT ,
+   response  TEXT ,
+   helpfulness  INT ,
 );
 
--- Table 'Review Metadata'
 
-DROP TABLE IF EXISTS  Review_Metadata ;
-
-CREATE TABLE  Review Metadata  (
-   product_id  TEXT NOT NULL AUTO_INCREMENT,
-   ratings  TEXT NULL DEFAULT NULL,
-   recommended  TEXT NULL DEFAULT NULL,
-   characteristics  TEXT NULL DEFAULT NULL,
-  PRIMARY KEY ( product_id )
+-- Table 'Reviews Photos'
+CREATE TABLE  ReviewsPhotos  (
+   photo_id  SERIAL PRIMARY KEY,
+   review_id  SERIAL,
+   url  TEXT ,
 );
 
 -- Table 'Characteristics'
-
-DROP TABLE IF EXISTS  Characteristics ;
-
 CREATE TABLE  Characteristics  (
-   id  INTEGER NOT NULL AUTO_INCREMENT,
-   value  INTEGER NULL DEFAULT NULL,
-   metadata_id  TEXT NULL DEFAULT NULL,
-  PRIMARY KEY ( id )
+  char_id SERIAL PRIMARY KEY,
+  product_id SERIAL,
+  name TEXT,
+);
+
+-- Table 'Characteristics'
+CREATE TABLE  CharReview  (
+  charReview_id SERIAL PRIMARY KEY,
+  chars_id SERIAL,
+  review_id SERIAL,
+  value INT,
 );
 
 -- Foreign Keys
 
-ALTER TABLE  Reviews_Results  ADD FOREIGN KEY (product_id) REFERENCES  Reviews  ( product );
-ALTER TABLE  Reviews_Results_Photos  ADD FOREIGN KEY (review_id) REFERENCES  Reviews_Results  ( review_id );
-ALTER TABLE  Characteristics  ADD FOREIGN KEY (metadata_id) REFERENCES  Review_Metadata  ( product_id );
+ALTER TABLE  Results  ADD FOREIGN KEY (product_id) REFERENCES  Reviews  ( product_id );
+ALTER TABLE  ReviewPhotos  ADD FOREIGN KEY (review_id) REFERENCES  Results  ( review_id );
+ALTER TABLE  Characteristics  ADD FOREIGN KEY (product_id) REFERENCES  Reviews  ( product_id );
+ALTER TABLE  CharReview ADD FOREIGN KEY (chars_id) REFERENCES Characteristics  ( char_id );
+ALTER TABLE  CharReview ADD FOREIGN KEY (review_id) REFERENCES Reviews  ( review_id );
 
 -- Table Properties
 
