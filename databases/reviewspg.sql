@@ -1,9 +1,9 @@
 -- Table 'Reviews Results'
-DROP DATABASE IF EXISTS Reviews;
+DROP DATABASE IF EXISTS reviews;
 
-CREATE DATABASE Reviews;
+CREATE DATABASE reviews;
 
-\c Reviews;
+\c reviews;
 
 DROP TABLE IF EXISTS  Reviews CASCADE;
 -- DROP TABLE IF EXISTS  Results CASCADE;
