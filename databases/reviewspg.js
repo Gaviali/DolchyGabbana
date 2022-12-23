@@ -1,13 +1,13 @@
 const { Pool } = require('pg');
-const connectionString = 'postgresql://127.0.0.1:5432/reviews'
+const connectionString = 'postgresql://localhost:5432/reviews'
 
 const pool = new Pool({
   connectionString,
   // user: 'root',
-  // host: '',
+  // host: 'localhost',
   // database: 'reviews',
   // password: '',
-  // port: 5432,
+  // port: 3000,
 });
 
 pool.query('SELECT NOW()', (err, res) => {
