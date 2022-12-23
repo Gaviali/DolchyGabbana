@@ -2,18 +2,16 @@ const db = require('../../databases/reviewspg')
 
 module.exports = {
   getAll: (callback) => {
-    const query = 'SELECT * FROM Reviews, Reviews Results WHERE product = product_id & reported = false'
+    const query = 'SELECT * FROM Reviews WHERE reported = false'
     db.query(query, (err, res) => {
       callback(err, res);
     });
   },
   post: (cb) => {
-    const insertResults = 'INSERT INTO Reviews Results (`review_id`,`product_id`,`rating`,`summary`,`recommend`,`response`,`body`,`date`,`reviewer_name`,`photos`,`helpfulness`) VALUES (*,*,*,*,*,*,*,*,*,*,*)';
-    const insertMeta = 'INSERT INTO `Review Metadata` (`product_id`,`ratings`,`recommended`,`characteristics`) VALUES (*,*,*,*)';
-    const insertPhotos = 'INSERT INTO `Reviews Results Photos` (`id`,`url`,`review_id`) VALUES (*,*,*)';
-    const resultsParam = ['int', 'int', 'int', 'string', 'string', 'string', 'string', 'date', 'string', 'photos', 'integer'];
-    const metaParam = ['string', 'obj to string', 'obj to string', 'string'];
-    const photoParam = ['int', 'string', 'int'];
+    const insertResults = 'INSERT INTO Reviews (review_id, product_id, rating, date, summary, body, recommended, reported, reviewer_name, reviewer_email, response, helpfulness) VALUES (*,*,*,*,*,*,*,*,*,*,*)';
+    const insertPhotos = 'INSERT INTO ReviewsPhotos (photo_id, review_id, url) VALUES (*,*,*)';
+    const resultsParam = ['serial', 'serial', 'int', 'timestamp', 'string', 'string', 'bool', 'bool', 'string', 'string', 'string', 'int'];
+    const photoParam = ['int', 'int', 'string'];
     // some way to pick a set of results
     db.query(insertResults, parameters, (err, res) => {
       cb(err, res);

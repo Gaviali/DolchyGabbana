@@ -1,5 +1,7 @@
 const { Pool } = require('pg');
-const connectionString = 'postgresql://localhost:5432/reviews'
+const connectionString = 'postgresql://localhost:5432/reviews';
+const parser = require('csv-parser');
+const fs = require('fs'); // maybe need promises
 
 const pool = new Pool({
   connectionString,
@@ -10,8 +12,14 @@ const pool = new Pool({
   // port: 3000,
 });
 
-pool.query('SELECT NOW()', (err, res) => {
-  console.log(err, res)
+// psql -d reviews -a -f databases/reviewsPg.sql
+
+console.log('test');
+
+pool.query('SELECT * FROM characteristics LIMIT 10', (err, res) => {
+  // console.log(err, res) ok I should use a limit or else time is lost
+  console.log(res.rows);
+  console.log('loaded things')
   pool.end()
 })
 
@@ -19,3 +27,6 @@ pool.query('SELECT NOW()', (err, res) => {
 //   .connect()
 //   .then(() => console.log('connected postgreSQL'))
 //   .catch((err) => console.error('Connection error: ', err));
+
+// \l list all databases
+// \dt list all database tables
