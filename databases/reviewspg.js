@@ -16,12 +16,34 @@ const pool = new Pool({
 
 console.log('test');
 
-pool.query('SELECT * FROM characteristics LIMIT 10', (err, res) => {
-  // console.log(err, res) ok I should use a limit or else time is lost
+pool.query('SELECT * FROM reviews LIMIT 5', (err, res) => {
   console.log(res.rows);
-  console.log('loaded things')
+  console.log('loaded all reviews wow')
+})
+
+
+pool.query('SELECT * FROM reviewsphotos LIMIT 3', (err, res) => {
+  console.log(res.rows);
+  console.log('loaded photos')
+
+})
+
+pool.query('SELECT * FROM characteristics LIMIT 8', (err, res) => {
+  console.log(res.rows);
+  console.log('loaded characteristics')
+})
+
+pool.query('SELECT * FROM charreviews LIMIT 8', (err, res) => {
+  console.log(res.rows);
+  console.log('loaded char reviews');
+})
+
+pool.query('SELECT charreview_id, photo_id, char_id, value FROM reviewsphotos, charreviews LIMIT 3', (err, res) => {
+  console.log(res.rows);
+  console.log('loaded tables together');
   pool.end()
 })
+
 
 // pool
 //   .connect()
