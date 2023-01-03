@@ -4,17 +4,20 @@ const parser = require('csv-parser');
 const fs = require('fs'); // maybe need promises
 
 const pool = new Pool({
-  connectionString,
-  // user: 'root',
-  // host: 'localhost',
-  // database: 'reviews',
-  // password: '',
-  // port: 3000,
+  // connectionString,
+  user: 'jeffreyzhang',
+  host: 'localhost',
+  database: 'reviews',
+  port: 5432,
 });
 
+// runs postgres on the .sql file, where table is created
 // psql -d reviews -a -f databases/reviewsPg.sql
 
 console.log('test');
+module.exports = pool;
+
+/*
 
 pool.query('SELECT * FROM reviews LIMIT 5', (err, res) => {
   console.log(res.rows);
@@ -40,9 +43,11 @@ pool.query('SELECT * FROM charreviews LIMIT 8', (err, res) => {
 
 pool.query('SELECT charreview_id, photo_id, char_id, value FROM reviewsphotos, charreviews LIMIT 3', (err, res) => {
   console.log(res.rows);
-  console.log('loaded tables together');
-  pool.end()
+  console.log('loaded tables together!');
+  // pool.end()
 })
+
+*/
 
 
 // pool
