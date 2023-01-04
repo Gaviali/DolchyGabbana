@@ -53,9 +53,12 @@ module.exports = {
         */
         const data = {
           product_id: req.params.product_id,
-          rating: {},
-          recommend: {},
-          characteristics: {},
+          rating: metaRes[0],
+          recommend: {
+            true: Number(metaRes[1].true),
+            false: Number(metaRes[1].false),
+          },
+          characteristics: metaRes[2],
         };
         res.status(200).send(data);
       }

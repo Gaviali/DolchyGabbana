@@ -18,16 +18,63 @@ module.exports = {
       cb(err, res);
     });
   },
-  getMeta: (cb, params) => {
+  getMeta: async (cb, params) => {
     // need to build objects for: ratings, recommended, characteristics, objects for each characteristic name
-    const getQuery = `
-    SELECT * FROM characteristics, charreviews
-    LIMIT 5
-    `;
+    const totalQuery = `SELECT count(*) FILTER (WHERE product_id = ${params.product_id}) FROM reviews`;
+    const recommendedQuery = `SELECT count(*) FILTER (WHERE product_id = ${params.product_id} AND recommend) FROM reviews`;
 
-    db.query(getQuery, (err, res) => {
-      cb(err, res);
-    });
+    // object for ratings
+    let ratingObj = {};
+    for (let i = 1; i < 6; i++) {
+      await db.query(`SELECT count(*) FROM reviews WHERE rating = ${i} AND product_id = ${params.product_id}`)
+        .then((res) => {
+          ratingObj[i] = Number(res.rows[0].count);
+        })
+    }
+
+    // object for recommend
+    let resObj = {};
+    let charObj = {};
+    await db.query(totalQuery)
+      .then((total) => {
+        let max = total.rows[0].count;
+        let recCount;
+        db.query(recommendedQuery)
+          .then((recs) => {
+            recCount = recs.rows[0].count;
+            resObj['true'] = recCount;
+            resObj['false'] = max - recCount;
+            db.query(`SELECT char_id, name FROM characteristics WHERE product_id = ${params.product_id}`)
+              .then((charRes) => {
+                return Promise.all(charRes.rows.map(async (char) => {
+                  await db.query(`SELECT value FROM charreviews WHERE char_id = ${char.char_id}`)
+                    .then((valueRes) => {
+                      let avg = valueRes.rows.reduce((acc, val) => {
+                        acc += val.value;
+                        return acc;
+                      }, 0);
+                      charObj[char.name] = {
+                        id: Number(char.char_id),
+                        value: avg /= valueRes.rows.length,
+                      };
+                    })
+                    .catch((err) => console.error(err))
+                  }))
+              })
+              .then(() => {
+                let EVERYTHING = [ratingObj, resObj, charObj];
+                cb(null, EVERYTHING);
+              })
+              .catch((err) => {
+                cb(err);
+              })
+          })
+          .catch((err) => console.log(err))
+        })
+      .catch((err) => console.log(err))
+
+    // object for characteristics
+
   },
   post: async (cb, params) => {
     // response, helpfulness and reported should have default values
