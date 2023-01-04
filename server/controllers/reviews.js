@@ -14,7 +14,6 @@ module.exports = {
           page: 0,
           count: modelRes.length,
           results: modelRes.rows.map((resObj, index) => {
-            console.log(resObj.reviewsphotos)
             return {
               review_id: resObj.review_id,
               rating: resObj.rating,
@@ -53,13 +52,32 @@ module.exports = {
     }, req.params);
   },
   post: (req, res) => {
-    model.reviews.post((err, res) => {
+    const reviewData = {
+      product_id: req.body.product_id,
+      rating: req.body.rating,
+      date: Date.now(),
+      summary: req.body.summary || '',
+      body: req.body.body,
+      recommend: req.body.recommend,
+      reported: false,
+      reviewer_name: req.body.reviewer_name,
+      reviewer_email: req.body.reviewer_email,
+      response: null,
+      helpfulness: 0,
+      photos: req.body.photos,
+      characteristics: req.body.characteristics,
+    }
+
+    console.log('all data here: ', reviewData);
+
+    model.reviews.post((err, postRes) => {
       if (err) {
         console.error(err);
+        res.status(404).send('error posting')
       } else {
-        res.status(201).send(data);
+        res.status(201).send('successful post');
       }
-    })
+    }, reviewData)
   },
   put: (req, res) => {
     model.reviews.update((err, res) => {

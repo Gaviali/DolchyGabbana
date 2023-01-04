@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS  CharReviews CASCADE;
 -- Table 'Reviews'
 
 CREATE TABLE Reviews (
-   review_id  INT PRIMARY KEY, -- SERIAL
+   review_id  SERIAL PRIMARY KEY, -- SERIAL
    product_id  INT, -- SERIAL
    rating  INT ,
    date  BIGINT , --looks like a bunch of numbers in the csv
@@ -31,7 +31,7 @@ CREATE TABLE Reviews (
 -- Table 'Reviews Photos'
 
 CREATE TABLE  ReviewsPhotos  (
-   photo_id  INT PRIMARY KEY, -- SERIAL
+   photo_id  SERIAL PRIMARY KEY, -- SERIAL
    review_id  INT, -- SERIAL
    url  TEXT
 );
@@ -40,7 +40,7 @@ CREATE TABLE  ReviewsPhotos  (
 -- Table 'Characteristics'
 
 CREATE TABLE  Characteristics  (
-  char_id INT PRIMARY KEY, -- SERIAL
+  char_id SERIAL PRIMARY KEY, -- SERIAL
   product_id INT, -- SERIAL
   name TEXT
 );
@@ -49,7 +49,7 @@ CREATE TABLE  Characteristics  (
 -- Table 'CharReviews'
 
 CREATE TABLE  CharReviews (
-  charReview_id INT PRIMARY KEY, -- SERIAL
+  charReview_id SERIAL PRIMARY KEY, -- SERIAL
   char_id INT, -- SERIAL
   review_id INT, -- SERIAL
   value INT
@@ -69,9 +69,7 @@ ALTER TABLE  CharReviews ADD FOREIGN KEY (review_id) REFERENCES Reviews  ( revie
 -- DELIMITER ','
 -- CSV HEADER;
 
--- Copies csv file directly from file path to database...
--- feels brute force
--- hello this is my file path
+-- Copies csv file directly from file path to database
 
 COPY Reviews(review_id, product_id, rating, date, summary, body, recommend, reported, reviewer_name, reviewer_email, response, helpfulness)
 FROM '/Users/jeffreyzhang/Desktop/Hack/SDC/DolchyGabbana/sdc_data/reviews.csv'
