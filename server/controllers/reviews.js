@@ -2,7 +2,7 @@ const model = require('../models');
 
 module.exports = {
   getReview: (req, res) => {
-    console.log('parameters: ', req.params)
+    // console.log('parameters: ', req.params)
     model.reviews.getReview((err, modelRes) => {
       if (err) {
         console.error(err);
@@ -81,7 +81,7 @@ module.exports = {
       characteristics: req.body.characteristics,
     }
 
-    console.log('all data here: ', reviewData);
+    // console.log('all data here: ', reviewData);
 
     model.reviews.post((err, postRes) => {
       if (err) {
