@@ -79,13 +79,22 @@ module.exports = {
       }
     }, reviewData)
   },
-  put: (req, res) => {
-    model.reviews.update((err, res) => {
+  putHelpful: (req, res) => {
+    model.reviews.setHelpful((err, putRes) => {
       if (err) {
         console.error(err);
       } else {
-        res.status(204).send(data);
+        res.status(204).send();
       }
-    })
+    }, req.params)
+  },
+  putReport: (req, res) => {
+    model.reviews.setReport((err, putRes) => {
+      if (err) {
+        console.error(err);
+      } else {
+        res.status(204).send();
+      }
+    }, req.params)
   }
 }

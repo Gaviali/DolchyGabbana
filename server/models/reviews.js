@@ -76,9 +76,15 @@ module.exports = {
     })
     cb();
   },
-  update: (cb) => {
-    const updateReview = 'UPDATE Reviews Results SET helpfulness = helpfulness + 1 WHERE product_id = product';
-    const updateReport = 'UPDATE report SET report = true';
-    db.query(updateReview)
+  setHelpful: (cb, params) => {
+    // console.log(params)
+    const updateReview = `UPDATE Reviews SET helpfulness = helpfulness + 1 WHERE review_id = ${params.review_id}`;
+    db.query(updateReview, (err, res) =>
+      cb(err, res))
+  },
+  setReport: (cb, params) => {
+    const updateReport = `UPDATE Reviews SET reported = true WHERE review_id = ${params.review_id}`;
+    db.query(updateReport, (err, res) =>
+      cb(err, res))
   }
 };
