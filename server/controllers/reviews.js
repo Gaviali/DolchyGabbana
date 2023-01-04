@@ -41,11 +41,21 @@ module.exports = {
         console.error(err);
         res.status(404).send(err);
       } else {
+        /*
+          rating: { 1: val, 2: val, 3: val, 4: val, 5: val}  -from reviews
+          recommend: { true: val, false: val}  -from reviews
+          characteristics: {
+            "name from characteristics table": {  -from characteristics
+              "id": char_id,      -from charreview
+              "value": AVERAGE of all values      -from charreview
+            }
+          }
+        */
         const data = {
           product_id: req.params.product_id,
-          ratings: 'an object',
-          recommended: 'an object',
-          characteristics: 'a pretty crazy object',
+          rating: {},
+          recommend: {},
+          characteristics: {},
         };
         res.status(200).send(data);
       }

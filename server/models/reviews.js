@@ -4,7 +4,7 @@ module.exports = {
   getReview: (cb, params) => {
     const limit = 5;
     // 'review_id', p.review_id, not needed
-    // using json_agg to build photos object
+    // using json_agg to combine array, then build photos object
     const getQuery = `
       SELECT r.*, JSON_AGG(JSON_BUILD_OBJECT
         ('photo_id', p.photo_id, 'url', p.url)) AS reviewsphotos
@@ -19,7 +19,7 @@ module.exports = {
     });
   },
   getMeta: (cb, params) => {
-    // need to use json_agg to build objects for: ratings, recommended, characteristics, objects for each characteristic name
+    // need to build objects for: ratings, recommended, characteristics, objects for each characteristic name
     const getQuery = `
     SELECT * FROM characteristics, charreviews
     LIMIT 5
