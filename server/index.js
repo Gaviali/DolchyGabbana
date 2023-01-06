@@ -21,6 +21,7 @@ if (cluster.isPrimary) {
     cluster.fork();
   });
 } else {
+  app.get('/loaderio-a0b47977cbcc1695bbdc8a6b18076f0a', (req, res) => res.send('loaderio-a0b47977cbcc1695bbdc8a6b18076f0a'));
   const router = require('./router.js')
 
   app.use(express.json());
