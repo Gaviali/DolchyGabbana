@@ -1,5 +1,5 @@
-const { Pool } = require('pg')
-//require('dotenv').config();
+const { Pool } = require('pg');
+require('dotenv').config();
 
 const pool = new Pool({
   user: process.env.PGUSER,
@@ -21,7 +21,8 @@ const connection = {
   },
 };
 
-module.exports = connection;
+//module.exports = connection;
+module.exports.pool = pool;
 
 // pool.connect()
 // .then(()=>{console.log('connection sucessful')})
