@@ -17,6 +17,8 @@ FROM '/Users/christopherwong/Documents/Hack reactor/bootcamp/Gaviali/SDC-files/p
 DELIMITER ','
 CSV HEADER;
 
+CREATE INDEX product_id_index ON product(id);
+
 GRANT SELECT, UPDATE, DELETE, INSERT on product to christopherwong;
 
 CREATE TABLE related (
@@ -31,6 +33,10 @@ COPY related
 FROM '/Users/christopherwong/Documents/Hack reactor/bootcamp/Gaviali/SDC-files/related.csv'
 DELIMITER ','
 CSV HEADER;
+
+CREATE INDEX related_id_index ON related(id);
+CREATE INDEX related_current_product_id_index ON related(current_product_id);
+CREATE INDEX related_related_product_id_index ON related(related_product_id);
 
 GRANT SELECT, UPDATE, DELETE, INSERT on related to christopherwong;
 
@@ -50,6 +56,9 @@ FROM '/Users/christopherwong/Documents/Hack reactor/bootcamp/Gaviali/SDC-files/s
 DELIMITER ','
 CSV HEADER;
 
+CREATE INDEX styles_id_index ON styles(id);
+CREATE INDEX styles_productId_index ON styles(productId);
+
 GRANT SELECT, UPDATE, DELETE, INSERT on styles to christopherwong;
 
 CREATE TABLE skus (
@@ -66,6 +75,9 @@ FROM '/Users/christopherwong/Documents/Hack reactor/bootcamp/Gaviali/SDC-files/s
 DELIMITER ','
 CSV HEADER;
 
+CREATE INDEX skus_id_index ON skus(id);
+CREATE INDEX skus_styleId_index ON skus(styleId);
+
 GRANT SELECT, UPDATE, DELETE, INSERT on skus to christopherwong;
 
 CREATE TABLE characteristics (
@@ -80,6 +92,9 @@ COPY characteristics
 FROM '/Users/christopherwong/Documents/Hack reactor/bootcamp/Gaviali/SDC-files/characteristics.csv'
 DELIMITER ','
 CSV HEADER;
+
+CREATE INDEX characteristics_id_index ON characteristics(id);
+CREATE INDEX characteristics_product_id_index ON characteristics(product_id);
 
 GRANT SELECT, UPDATE, DELETE, INSERT on characteristics to christopherwong;
 
@@ -97,6 +112,9 @@ FROM '/Users/christopherwong/Documents/Hack reactor/bootcamp/Gaviali/SDC-files/p
 DELIMITER ','
 CSV HEADER;
 
+CREATE INDEX photos_id_index ON photos(id);
+CREATE INDEX photos_styleId_index ON photos(styleId);
+
 GRANT SELECT, UPDATE, DELETE, INSERT on photos to christopherwong;
 
 CREATE TABLE features  (
@@ -112,6 +130,9 @@ COPY features
 FROM '/Users/christopherwong/Documents/Hack reactor/bootcamp/Gaviali/SDC-files/features.csv'
 DELIMITER ','
 CSV HEADER;
+
+CREATE INDEX features_id_index ON features(id);
+CREATE INDEX features_product_id_index ON features(product_id);
 
 GRANT SELECT, UPDATE, DELETE, INSERT on features to christopherwong;
 
